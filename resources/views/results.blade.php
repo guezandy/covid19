@@ -5,6 +5,12 @@
     <div class="row col-sm-12">
         <div class="col-sm-7">
             <h1>Requests ({{$requestCount}})</h1>
+            <p>
+                The system can only send one text per phone number. So when a phone number
+                is seen for a second time it is ignored. Attempts is the number of times a 
+                phone number is seen either via file upload or single message attempts. Success
+                is the number of times a message has been sent to that number and should always be 1.
+            </p>
             <table class="table table-striped">
                 <thead>
                     <th>Lastest update</th>

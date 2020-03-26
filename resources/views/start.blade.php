@@ -15,11 +15,31 @@
         @endif
     </div>
     <div class="row">
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Instructions</h3>
+                    <p>Use the 3 forms on the side to send a single text, text an entire csv, and download the responses to text messages, respectively</p>
+                </div>
+                <div class="card-body">
+                    <h3>First message</h3>
+                    <p><strong>{{App\Jobs\SendMessage::FIRST_MESSAGE}}</strong></p>
+
+                    <h3>Follow up message</h3>
+                    <p>(If someone replies to original message we send them this)</p>
+                    <p><strong>{{App\Jobs\SendMessage::FOLLOWUP_MESSAGE}}</strong></p>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-7">
             <div class="card">
                 <div class="card-header">
                     <h3>Send a single text message</h3>
-                    <p>Enter a single phone number and a message will be sent</p>
+                    <p>
+                        Enter a single phone number and a message will be sent.
+                        Phone numbers should be formatted at +14445556666 or 4445556666 with no spaces, dashes or special characters
+                        Note that a text message cannot be sent to the same number twice.
+                    </p>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('single_message') }}">
@@ -36,7 +56,12 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Upload a CSV of phone numbers</h3>
-                    <p>Upload a CSV file with a single column of only phone numbers, any invalid phone numbers will be filtered and texts not sent</p>
+                    <p>
+                        Upload a CSV file with a single column of only phone numbers.
+                        Phone numbers should be formatted at +14445556666 or 4445556666 with no spaces, dashes or special characters.
+                        Any invalid phone numbers will be filtered and texts not sent.
+                        Note: that a text message cannot be sent to the same number twice.
+                    </p>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('csv_file') }}" enctype="multipart/form-data">
@@ -59,21 +84,6 @@
                     <form method="POST" action="{{ route('download_response') }}" enctype="multipart/form-data">
                         <button class="btn btn-primary" type="submit">Download</button>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Content of the messages sent</h3>
-                </div>
-                <div class="card-body">
-                    <h3>First message</h3>
-                    <p><strong>{{App\Jobs\SendMessage::FIRST_MESSAGE}}</strong></p>
-
-                    <h3>Follow up message</h3>
-                    <p>(If someone replies to original message we send them this)</p>
-                    <p><strong>{{App\Jobs\SendMessage::FOLLOWUP_MESSAGE}}</strong></p>
                 </div>
             </div>
         </div>

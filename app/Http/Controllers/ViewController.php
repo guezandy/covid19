@@ -70,7 +70,7 @@ class ViewController extends Controller
                 Log::warning('File upload ' . $number . ' did not match phone number format');
             }
         }
-        return view('start')->with('task_success', 'Doc upload sent ' . $message_sent_count . ' messages successfully.');
+        return view('start')->with('task_success', 'Doc upload read ' . $message_sent_count . ' phone numbers successfully.');
     }
 
     public function downloadResponsesCsv(Request $request) {
