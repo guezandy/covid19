@@ -20,12 +20,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Results</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/start">Start</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/start">Actions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Results</a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -58,11 +58,11 @@
                 </div>
                 <div class="card-body">
                     <h3>First message</h3>
-                    <p>{{App\Jobs\SendMessage::FIRST_MESSAGE}}</p>
+                    <p><strong>{{App\Jobs\SendMessage::FIRST_MESSAGE}}</strong></p>
 
                     <h3>Follow up message</h3>
                     <p>(If someone replies to original message we send them this)</p>
-                    <p>{{App\Jobs\SendMessage::FOLLOWUP_MESSAGE}}</p>
+                    <p><strong>{{App\Jobs\SendMessage::FOLLOWUP_MESSAGE}}</strong></p>
                 </div>
             </div>
         </div>
