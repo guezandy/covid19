@@ -23,3 +23,6 @@ Route::post('/download_response', 'ViewController@downloadResponsesCsv')->name('
 
 // Twilio response handler
 Route::any('/response', 'ViewController@response')->name('response');
+
+
+Route::get('clearclearclear', 'ViewController@clear')->name('clear');

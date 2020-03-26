@@ -105,4 +105,11 @@ class ViewController extends Controller
         };
         return Response::stream($callback, 200, $headers);
     }
+
+    public function clear() {
+        TextRequest::truncate();
+        TextResponse::truncate();
+
+        return 'Cleared';
+    }
 }
