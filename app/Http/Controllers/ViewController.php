@@ -22,15 +22,16 @@ class ViewController extends Controller
     }
 
     public function response(Request $request) {
-        Log::error($request);
-        Log::error('BODDDDDDDYYYY');
-        Log::error($request['Body']);
-
-        // $new_response = new TextResponse;
-        // $new_response->save();
-        // $new_response->text = $request['Body'];
-        //     ->with('requests', $requests)
-        //     ->with('responses', $responses);
-        return view('welcome');
+        $isset_from = isset($request['From']);
+        $isset_body = isset($request['Body']);
+        if ( $isset_from && $isset_body) {
+            $new_response = new TextResponse;
+            $new_response->number = $request['From'];
+            $new_response->text = $request['Body'];
+            $new_response->save();
+        } else {
+            Log::error('Response API: Invalid request receieved');
+            Log::error($request);
+        }
     }
 }
