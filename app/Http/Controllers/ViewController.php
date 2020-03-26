@@ -22,9 +22,9 @@ class ViewController extends Controller
     }
 
     public function response(Request $request) {
-        return $request;
-        // error_log('BODDDDDDDYYYY');
-        // error_log($request['Body']);
+        error_log($request);
+        error_log('BODDDDDDDYYYY');
+        error_log($request['Body']);
 
         // $new_response = new TextResponse;
         // $new_response->text = $request['Body'];
