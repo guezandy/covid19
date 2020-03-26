@@ -15,6 +15,9 @@ class SendMessage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    const FIRST_MESSAGE = 'Please help with a donation';
+    const FOLLOWUP_MESSAGE = 'We will be in touch';
+
     protected $recipient;
     protected $message;
     protected $final_reply;
@@ -28,7 +31,7 @@ class SendMessage implements ShouldQueue
     {
         //
         $this->recipient = $recipient;
-        $this->message = $final_reply ? "We will be in touch" : "Please help with a donation";
+        $this->message = $final_reply ? SendMessage::FOLLOWUP_MESSAGE : SendMessage::FIRST_MESSAGE;
         $this->final_reply = $final_reply;
     }
 
@@ -46,15 +49,16 @@ class SendMessage implements ShouldQueue
 
         $client = new Client($account_sid, $auth_token);
 
-        // $request_exist = TextRequest::where('number', $this->recipient)->first();
-        // if (isset($request_exist)) {
-        //     // We've already messaged this person
-        //     $request_exist->attempts += 1;
-        //     $request_exist->save();
-        //     return;
-        // }
-
         if (!$this->final_reply) {
+            // Don't send texts twice
+            $request_exist = TextRequest::where('number', $this->recipient)->first();
+            if (isset($request_exist)) {
+                // We've already messaged this person
+                $request_exist->attempts += 1;
+                $request_exist->save();
+                return;
+            }
+
             $request = new TextRequest;
             $request->number = $this->recipient;
             $request->attempts = 1;

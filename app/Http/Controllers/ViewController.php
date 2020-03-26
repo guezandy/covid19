@@ -11,12 +11,17 @@ use App\Jobs\SendMessage;
 class ViewController extends Controller
 {
     public function index() {
-        $requests = TextRequest::orderBy('updated_at')->get();
-        $responses = TextResponse::orderBy('updated_at')->get();
+        $requests = TextRequest::orderBy('updated_at', 'DESC')->take(100)->get();
+        $responses = TextResponse::orderBy('updated_at', 'DESC')->take(100)->get();
 
-        SendMessage::dispatch('+17864449405', false);
+        $requests_count = TextRequest::count();
+        $response_count = TextResponse::count();
 
-        return view('welcome')
+        SendMessage::dispatch('+17863947558', false);
+
+        return view('results')
+            ->with('requestCount', $requests_count)
+            ->with('responseCount', $response_count)
             ->with('requests', $requests)
             ->with('responses', $responses);
     }
@@ -35,5 +40,48 @@ class ViewController extends Controller
             Log::error('Response API: Invalid request receieved');
             Log::error($request);
         }
+    }
+
+    public function start() {
+        return view('start');
+    }
+
+    public function singleMessage(Request $request) {
+        $validatedData = $this->validate($request,[
+            'phone' => 'bail|required|regex:/^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/|min:11|numeric',
+        ]);
+        SendMessage::dispatch($request['phone'], false);
+        return view('start')->with('task_success', 'Single text message sent successfully');
+    }
+
+    public function csvFile(Request $request) {
+        $validatedData = $this->validate($request,[
+            'csv_file' => 'bail|required|file',
+        ]);
+        $path = $request->file('csv_file')->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+
+        $message_sent_count = 0;
+
+        foreach($data as $number) {
+            $actual_num = $number[0];
+            // If is a phone number send message
+            if (preg_match('/^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/', $actual_num)) {
+                SendMessage::dispatch($number[0], false);
+                $message_sent_count += 1;
+            } else {
+                Log::warning('File upload ' . $number . ' did not match phone number format');
+            }
+        }
+        return view('start')->with('task_success', 'Doc upload sent ' . $message_sent_count . ' messages successfully.');
+    }
+
+    public function googleDoc(Request $request) {
+        $validatedData = $this->validate($request,[
+            'doc' => 'bail|required|url',
+        ]);
+        return $validatedData;
+        // SendMessage::dispatch($request['phone'], false);
+        return view('start')->with('task_success', 'Single text message sent successfully');
     }
 }

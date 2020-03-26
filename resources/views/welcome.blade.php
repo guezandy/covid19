@@ -13,55 +13,24 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <div>
-            <div class="row col-sm-12">
-                <div class="col-sm-8">
-                    <h1>Requests</h1>
-                    <table class="table table-striped">
-                        <thead>
-                            <th>Time</th>
-                            <th>Attempts</th>
-                            <th>Success</th>
-                            <th>Number</th>
-                            <th>Text</th>
-                        </thead>
-                        <tbody>
-                        @if(isset($requests))
-                            @foreach($requests as $request)
-                            <tr>
-                                <td>{{$request['updated_at']}}</td>
-                                <td>{{$request['attempts']}}</td>
-                                <td>{{$request['success']}}</td>
-                                <td>{{$request['number']}}</td>
-                                <td>{{$request['text']}}</td>
-                            <tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm-4">
-                    <h1>Responses</h1>
-                    <table class="table table-striped">
-                        <thead>
-                            <th>Time</th>
-                            <th>Number</th>
-                            <th>Text</th>
-                        </thead>
-                        <tbody>
-                        @if(isset($responses))
-                            @foreach($responses as $response)
-                            <tr>
-                                <td>{{$response['created_at']}}</td>
-                                <td>{{$response['number']}}</td>
-                                <td>{{$response['text']}}</td>
-                            <tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Covid19 NYC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Results</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/start">Start</a>
+                </li>
+                </ul>
             </div>
+        </nav>
+        <div class="container-fluid">
+            @yield('content')
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
