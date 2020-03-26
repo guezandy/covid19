@@ -28,24 +28,15 @@ class ViewController extends Controller
     }
 
     public function twilioPost() {
-        return response('Success', 200)->header('Content-Type', 'text/plain');
+        return response(SendMessage::FOLLOWUP_MESSAGE, 200)->header('Content-Type', 'text/plain');
     }
 
     public function response(Request $request) {
-        $isset_from = isset($request['From']);
-        $isset_body = isset($request['Body']);
-        if ( $isset_from && $isset_body) {
-            $new_response = new TextResponse;
-            $new_response->number = $request['From'];
-            $new_response->text = $request['Body'];
-            $new_response->save();
-            # Send confirmation reply
-            SendMessage::dispatch($new_response->number, true);
-        } else {
-            Log::error('Response API: Invalid request receieved');
-            Log::error($request);
-        }
-        return response('Success', 200)->header('Content-Type', 'text/plain');
+        $new_response = new TextResponse;
+        $new_response->number = $request['From'];
+        $new_response->text = $request['Body'];
+        $new_response->save();
+        return response(SendMessage::FOLLOWUP_MESSAGE, 200)->header('Content-Type', 'text/plain');
     }
 
     public function start() {
