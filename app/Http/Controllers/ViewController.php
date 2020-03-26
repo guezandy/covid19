@@ -43,6 +43,7 @@ class ViewController extends Controller
             Log::error('Response API: Invalid request receieved');
             Log::error($request);
         }
+        return response('Success', 200)->header('Content-Type', 'text/plain');
     }
 
     public function start() {
