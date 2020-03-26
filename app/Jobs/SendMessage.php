@@ -16,6 +16,8 @@ class SendMessage implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $recipient;
+    protected $message;
+    protected $final_reply;
 
     /**
      * Create a new job instance.
