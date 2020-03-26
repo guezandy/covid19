@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Log;
 use App\Request as TextRequest;
 use App\Response as TextResponse;
 use App\Jobs\SendMessage;
@@ -22,12 +22,12 @@ class ViewController extends Controller
     }
 
     public function response(Request $request) {
-        error_log($request);
-        error_log('BODDDDDDDYYYY');
-        error_log($request['Body']);
+        Log::error($request);
+        Log::error('BODDDDDDDYYYY');
+        Log::error($request['Body']);
 
-        $new_response = new TextResponse;
-        $new_response->save();
+        // $new_response = new TextResponse;
+        // $new_response->save();
         // $new_response->text = $request['Body'];
         //     ->with('requests', $requests)
         //     ->with('responses', $responses);
