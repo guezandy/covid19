@@ -22,10 +22,12 @@ class SendMessage implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($recipient)
+    public function __construct($recipient, $final_reply)
     {
         //
         $this->recipient = $recipient;
+        $this->message = $final_reply ? "We will be in touch" : "Please help with a donation";
+        $this->final_reply = $final_reply;
     }
 
     /**
@@ -35,7 +37,6 @@ class SendMessage implements ShouldQueue
      */
     public function handle()
     {
-        $message = 'Hello World';
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_NUMBER");
@@ -51,18 +52,20 @@ class SendMessage implements ShouldQueue
         //     return;
         // }
 
-        $request = new TextRequest;
-        $request->number = $this->recipient;
-        $request->attempts = 1;
-        $request->success = 1;
-        $request->text = $message;
-        $request->save();
+        if (!$this->final_reply) {
+            $request = new TextRequest;
+            $request->number = $this->recipient;
+            $request->attempts = 1;
+            $request->success = 1;
+            $request->text = $this->message;
+            $request->save();
+        }
 
         $client->messages->create(
             $this->recipient,
             array(
                 'from' => $twilio_number,
-                'body' => $message,
+                'body' => $this->message,
                 'messagingServiceSid' => $messaging_sid
             )
         );
