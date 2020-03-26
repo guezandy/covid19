@@ -26,7 +26,8 @@ class ViewController extends Controller
         error_log('BODDDDDDDYYYY');
         error_log($request['Body']);
 
-        // $new_response = new TextResponse;
+        $new_response = new TextResponse;
+        $new_response->save();
         // $new_response->text = $request['Body'];
         //     ->with('requests', $requests)
         //     ->with('responses', $responses);

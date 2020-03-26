@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'ViewController@index')->name('welcome');
-Route::any('/response', 'ViewController@response')->name('response');
+Route::post('/response', 'ViewController@response')->name('response');
