@@ -15,7 +15,7 @@
     <body>
         <div>
             <div class="row col-sm-12">
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <h1>Requests</h1>
                     <table class="table table-striped">
                         <thead>
@@ -40,7 +40,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h1>Responses</h1>
                     <table class="table table-striped">
                         <thead>

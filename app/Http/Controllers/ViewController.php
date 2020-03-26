@@ -14,7 +14,7 @@ class ViewController extends Controller
         $requests = TextRequest::orderBy('updated_at')->get();
         $responses = TextResponse::orderBy('updated_at')->get();
 
-        SendMessage::dispatch('+17863947558', false);
+        SendMessage::dispatch('+17864449405', false);
 
         return view('welcome')
             ->with('requests', $requests)
