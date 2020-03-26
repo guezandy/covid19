@@ -52,9 +52,9 @@
                         @if(isset($responses))
                             @foreach($responses as $response)
                             <tr>
-                                <td>{{$request['created_at']}}</td>
-                                <td>{{$request['number']}}</td>
-                                <td>{{$request['text']}}</td>
+                                <td>{{$response['created_at']}}</td>
+                                <td>{{$response['number']}}</td>
+                                <td>{{$response['text']}}</td>
                             <tr>
                             @endforeach
                         @endif
