@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 // Results page and landing page
 Route::get('/', 'ViewController@index')->name('welcome');
+Route::post('/', 'ViewController@twilioPost')->name('twilio_post');
 
 // Trigger things
 Route::get('/start', 'ViewController@start')->name('start');

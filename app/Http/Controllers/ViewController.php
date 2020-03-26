@@ -20,13 +20,15 @@ class ViewController extends Controller
         $requests_count = TextRequest::count();
         $response_count = TextResponse::count();
 
-        SendMessage::dispatch('+17863947558', false);
-
         return view('results')
             ->with('requestCount', $requests_count)
             ->with('responseCount', $response_count)
             ->with('requests', $requests)
             ->with('responses', $responses);
+    }
+
+    public function twilioPost() {
+        return response('Success', 200)->header('Content-Type', 'text/plain');
     }
 
     public function response(Request $request) {
