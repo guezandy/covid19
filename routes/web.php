@@ -23,3 +23,7 @@ Route::post('/csv_file', 'ViewController@csvFile')->name('csv_file');
 
 // Twilio response handler
 Route::any('/response', 'ViewController@response')->name('response');
+
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
