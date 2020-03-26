@@ -50,6 +50,17 @@
                     </form>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Download list of responses received</h3>
+                    <p>Downloads a CSV with 2 columns - Phone number, response message</p>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('download_response') }}" enctype="multipart/form-data">
+                        <button class="btn btn-primary" type="submit">Download</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="col-sm-5">
             <div class="card">
@@ -67,25 +78,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-sm-7">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Read from Google doc link (Not working yet)</h3>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('google_doc') }}">
-                        <input placeholder="Google DOC URL" id="url" type="text" class="form-control{{ $errors->has('url') ? ' is-invalid' : '' }}" name="url" value="{{ old('url') }}" required autofocus>
-                        @if ($errors->has('url'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('url') }}</strong>
-                            </span>
-                        @endif
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    
 </div>
 @endsection

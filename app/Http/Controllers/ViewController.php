@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
 use Log;
 use App\Request as TextRequest;
 use App\Response as TextResponse;
 use App\Jobs\SendMessage;
+use Carbon\Carbon;
 
 class ViewController extends Controller
 {
@@ -76,12 +79,30 @@ class ViewController extends Controller
         return view('start')->with('task_success', 'Doc upload sent ' . $message_sent_count . ' messages successfully.');
     }
 
-    public function googleDoc(Request $request) {
-        $validatedData = $this->validate($request,[
-            'doc' => 'bail|required|url',
-        ]);
-        return $validatedData;
-        // SendMessage::dispatch($request['phone'], false);
-        return view('start')->with('task_success', 'Single text message sent successfully');
+    public function downloadResponsesCsv(Request $request) {
+        $mytime = Carbon::now();
+        $filename = $mytime . '.csv';
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=" . $filename,
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $responses = TextResponse::orderBy('created_at', 'DESC')->get();
+        $columns = array('Phone number', 'Message');
+
+        $callback = function() use ($responses, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($responses as $response) {
+                fputcsv($file, array($response->number, $response->text));
+            }
+            fclose($file);
+        };
+        return Response::stream($callback, 200, $headers);
     }
 }
